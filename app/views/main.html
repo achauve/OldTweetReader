@@ -1,0 +1,53 @@
+<div ng-controller="LoginCtrl" ng-hide="isLoggedIn">
+    <form role="form">
+        <div class="form-group">
+            <label for="serverUrlInput">Server url</label>
+            <input type="text" class="form-control" id="serverUrlInput" ng-model="serverUrl">
+        </div>
+        <div class="form-group">
+            <label for="authTokenInput">Auth token</label>
+            <input type="text" class="form-control" id="authTokenInput" ng-model="authToken">
+        </div>
+        <button ng-click="checkLogin()" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+
+<ul class="list-group">
+      <li ng-repeat="tweet in data.tweets | filter:{metadata.read:false}" class="list-group-item">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-1">
+                      <!-- TODO clean username -->
+                      <a ng-href="https://twitter.com/achauve/status/{{tweet.twitterData.id}}" target="_blank">
+                          <img ng-src="{{tweet.twitterData.user.imageUrl}}"/>
+                      </a>
+                  </div>
+                  <div class="col-md-11">
+                      <h4 class="list-group-item-heading">{{ tweet.twitterData.user.name }}</h4> @{{tweet.twitterData.user.pseudo}}
+                      <div ng-bind-html-unsafe="tweet.twitterData.text | parseUrlFilter:'_blank'"></div>
+                      <button type="button" class="btn btn-link" ng-click="markAsRead(tweet)">{{getReadLabel(tweet)}}</button>
+                      <button type="button" class="btn btn-link">Interesting</button>
+                      <button type="button" class="btn btn-link">Read later</button>
+                      <button type="button" class="btn btn-link">Retweet</button>
+                      <button type="button" class="btn btn-link">Retweet with citation</button>
+                      <p ng-show="tweet.twitterData.retweet">
+                          <strong>
+                            Retweeted from {{tweet.twitterData.retweet.user.name}}  @{{tweet.twitterData.retweet.user.pseudo}}
+                            {{tweet.twitterData.retweet.createdAt}}
+                          </strong>
+                      </p>
+                      <ul>
+                          <li ng-repeat="url in tweet.twitterData.entities.urls">
+                            <a ng-href="url.expanded_url">{{url.expanded_url}}</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+
+
+      </li>
+  </ul>
+
