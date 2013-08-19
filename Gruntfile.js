@@ -228,7 +228,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            'bower_components/**/*',
+            //'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*'
           ]
@@ -285,7 +285,17 @@ module.exports = function (grunt) {
           ]
         }
       }
-    }
+    },
+      githubPages: {
+          target: {
+              options: {
+                  // The default commit message for the gh-pages branch
+                  commitMessage: 'deploy'
+              },
+              // The folder where your gh-pages repo is
+              src: 'dist'
+          }
+      }
   });
 
   grunt.registerTask('server', function (target) {
@@ -328,4 +338,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('deploy', ['githubPages:target']);
 };
