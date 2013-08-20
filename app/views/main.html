@@ -29,8 +29,7 @@
                       <button type="button" class="btn btn-link" ng-click="markAsRead(tweet)">{{getReadLabel(tweet)}}</button>
                       <button type="button" class="btn btn-link">Interesting</button>
                       <button type="button" class="btn btn-link">Read later</button>
-                      <button type="button" class="btn btn-link">Retweet</button>
-                      <button type="button" class="btn btn-link">Retweet with citation</button>
+                      <button type="button" class="btn btn-link" ng-click="retweet(tweet)">Retweet</button>
                       <p ng-show="tweet.twitterData.retweet">
                           <strong>
                             Retweeted from {{tweet.twitterData.retweet.user.name}}  @{{tweet.twitterData.retweet.user.pseudo}}

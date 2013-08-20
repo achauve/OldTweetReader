@@ -12,7 +12,14 @@ angular.module('TweetReaderApp')
         $scope.getReadLabel = function (tweet) {
             if (tweet.metadata.read) return "Mark as unread";
             else return "Mark as read";
-        }
+        };
+
+        $scope.retweet = function (tweet) {
+            tweet.metadata.retweeted = true;
+            tweet.metadata.read = true;
+            tweet.metadata.interesting = true;
+            tweet.put();
+        };
 
     }])
     .controller('LoginCtrl', ['$scope', '$http', 'Restangular', 'localStorageService', 'Tweets',
