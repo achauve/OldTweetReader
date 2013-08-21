@@ -21,6 +21,14 @@ angular.module('TweetReaderApp')
             tweet.put();
         };
 
+        $scope.retweetAsRT = function (tweet) {
+            tweet.metadata.interesting = true;
+            tweet.metadata.read = true;
+            tweet.put();
+
+            Tweets.create("RT @" + tweet.twitterData.user.pseudo + " " + tweet.twitterData.text);
+        };
+
     }])
     .controller('LoginCtrl', ['$scope', '$http', 'Restangular', 'localStorageService', 'Tweets',
                 function ($scope, $http, Restangular, localStorageService, Tweets) {

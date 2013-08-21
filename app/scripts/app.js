@@ -43,6 +43,11 @@ angular.module('TweetReaderApp', ['restangular', 'LocalStorageModule'])
                data.tweets.then( function(tweets) {
                    console.log("fetched " + tweets.length + " tweets");
                });
+           },
+
+           create: function (text) {
+               console.log("creating tweet: " + text);
+               Restangular.all('tweets').post({text: text});
            }
        };
 
