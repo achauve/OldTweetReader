@@ -30,6 +30,7 @@
                       <button type="button" class="btn btn-link">Interesting</button>
                       <button type="button" class="btn btn-link">Read later</button>
                       <button type="button" class="btn btn-link" ng-click="retweet(tweet)">Retweet</button>
+                      <button type="button" class="btn btn-link" ng-click="retweetAsRT(tweet)">Retweet using RT@</button>
                       <p ng-show="tweet.twitterData.retweet">
                           <strong>
                             Retweeted from {{tweet.twitterData.retweet.user.name}}  @{{tweet.twitterData.retweet.user.pseudo}}
