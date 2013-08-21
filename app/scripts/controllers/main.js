@@ -22,11 +22,14 @@ angular.module('TweetReaderApp')
         };
 
         $scope.retweetAsRT = function (tweet) {
+            $scope.markAsInteresting(tweet);
+            Tweets.create("RT @" + tweet.twitterData.user.pseudo + " " + tweet.twitterData.text);
+        };
+
+        $scope.markAsInteresting = function (tweet) {
             tweet.metadata.interesting = true;
             tweet.metadata.read = true;
             tweet.put();
-
-            Tweets.create("RT @" + tweet.twitterData.user.pseudo + " " + tweet.twitterData.text);
         };
 
     }])
