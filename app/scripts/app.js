@@ -38,7 +38,11 @@ angular.module('TweetReaderApp', ['restangular', 'LocalStorageModule'])
 
            refresh: function () {
                console.log("refreshing tweets");
-               data.tweets = Restangular.all('tweets').getList();
+               data.tweets = Restangular.all('tweets').getList({read: false});
+
+               data.tweets.then( function(tweets) {
+                   console.log("fetched " + tweets.length + " tweets");
+               });
            }
        };
 
