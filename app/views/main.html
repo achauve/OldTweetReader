@@ -38,7 +38,7 @@
                       </p>
                       <ul>
                           <li ng-repeat="url in tweet.twitterData.entities.urls">
-                            <a ng-href="url.expanded_url">{{url.expanded_url}}</a>
+                            <a ng-href="{{url.expanded_url}}" target="_blank">{{url.expanded_url}}</a>
                           </li>
                       </ul>
                   </div>
