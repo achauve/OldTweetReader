@@ -4,11 +4,14 @@ angular.module('TweetReaderApp')
     .controller('MainCtrl', ['$scope', 'Tweets', function ($scope, Tweets) {
         $scope.data = Tweets.get();
 
+        $scope.markingAsRead = false;
         $scope.markAsRead = function (tweet) {
             console.log("beginning PUT");
+            $scope.markingAsRead = true;
             tweet.metadata.read = !tweet.metadata.read;
             tweet.put().then( function () {
                 console.log("PUT OK");
+                $scope.markingAsRead = false;
             });
         };
 
