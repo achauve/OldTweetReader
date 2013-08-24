@@ -68,9 +68,9 @@
 
               <div class="row spacer" ng-show="tweet.twitterData.entities.urls">
                   <div class="col-xs-12">
-                      <ul>
+                      <ul class="list-unstyled">
                           <li ng-repeat="url in tweet.twitterData.entities.urls">
-                            <a ng-href="{{url.expanded_url}}" target="_blank" class="btn btn-default btn-lg">{{url.display_url}}</a>
+                            <a ng-href="{{url.expanded_url}}" target="_blank" class="btn btn-default">{{url.display_url}}</a>
                           </li>
                       </ul>
                   </div>
