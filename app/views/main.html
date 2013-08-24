@@ -44,10 +44,10 @@
 
               </div>
               <div class="row">
-                  <div class="col-xs-12" class="control-group">
+                  <div class="col-xs-12">
 
                       <div class="btn-group">
-                          <button type="button" class="btn btn-default btn-lg" ng-class="{disabled: markingAsRead}" ng-click="markAsRead(tweet)">
+                          <button type="button" class="btn btn-default btn-lg" ng-class="{disabled: tweet.markAsReadInProgress, 'btn-primary': tweet.markAsReadInProgress, 'btn-danger': tweet.markAsReadError}" ng-click="markAsRead(tweet)">
                               <span class="glyphicon glyphicon-trash"></span>
                           </button>
                           <button type="button" class="btn btn-default btn-lg">

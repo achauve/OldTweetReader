@@ -1,17 +1,23 @@
 'use strict';
 
 angular.module('TweetReaderApp')
-    .controller('MainCtrl', ['$scope', 'Tweets', function ($scope, Tweets) {
+    .controller('MainCtrl', ['$scope', 'Tweets', 'Restangular', function ($scope, Tweets, Restangular) {
         $scope.data = Tweets.get();
 
-        $scope.markingAsRead = false;
         $scope.markAsRead = function (tweet) {
             console.log("beginning PUT");
-            $scope.markingAsRead = true;
-            tweet.metadata.read = !tweet.metadata.read;
-            tweet.put().then( function () {
+            var tmpTweet = Restangular.copy(tweet);
+
+            tweet.markAsReadInProgress = true;
+            tmpTweet.metadata.read = !tweet.metadata.read;
+            tmpTweet.put().then( function () {
                 console.log("PUT OK");
-                $scope.markingAsRead = false;
+                tweet.markAsReadInProgress = false;
+                tweet.markAsReadError = false;
+                tweet.metadata.read = tmpTweet.metadata.read;
+            }, function () {
+                tweet.markAsReadInProgress = false;
+                tweet.markAsReadError = true;
             });
         };
 
