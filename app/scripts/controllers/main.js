@@ -5,13 +5,11 @@ angular.module('TweetReaderApp')
         $scope.data = Tweets.get();
 
         $scope.markAsRead = function (tweet) {
+            console.log("beginning PUT");
             tweet.metadata.read = !tweet.metadata.read;
-            tweet.put();
-        };
-
-        $scope.getReadLabel = function (tweet) {
-            if (tweet.metadata.read) return "Mark as unread";
-            else return "Mark as read";
+            tweet.put().then( function () {
+                console.log("PUT OK");
+            });
         };
 
         $scope.retweet = function (tweet) {
