@@ -1,4 +1,4 @@
-<div ng-controller="LoginCtrl" ng-hide="isLoggedIn">
+<div class="container" ng-controller="LoginCtrl" ng-hide="isLoggedIn">
     <form role="form">
         <div class="form-group">
             <label for="serverUrlInput">Server url</label>
@@ -14,39 +14,68 @@
 
 
 <ul class="list-group">
-      <li ng-repeat="tweet in data.tweets | filter:{metadata.read:false}" class="list-group-item">
+      <li ng-repeat="tweet in data.tweets | filter:{metadata.read:false} | limitTo:50" class="list-group-item">
           <div class="container">
               <div class="row">
-                  <div class="col-md-1">
+                  <div class="col-xs-2 col-sm-1">
                       <!-- TODO clean username -->
                       <a ng-href="https://twitter.com/achauve/status/{{tweet.twitterData.id}}" target="_blank">
                           <img ng-src="{{tweet.twitterData.user.imageUrl}}">
                       </a>
                   </div>
-                  <div class="col-md-11">
-                      <h4 class="list-group-item-heading">{{ tweet.twitterData.user.name }}</h4> @{{tweet.twitterData.user.pseudo}}
-                      <div ng-bind-html-unsafe="tweet.twitterData.text | parseUrlFilter:'_blank'"></div>
-                      <button type="button" class="btn btn-link" ng-click="markAsRead(tweet)">{{getReadLabel(tweet)}}</button>
-                      <button type="button" class="btn btn-link">Read later</button>
-                      <button type="button" class="btn btn-link" ng-click="retweet(tweet)">Retweet</button>
-                      <button type="button" class="btn btn-link" ng-click="retweetAsRT(tweet)">Retweet using RT@</button>
-                      <button type="button" class="btn btn-link" ng-click="markAsInteresting(tweet)">Mark as interesting</button>
-                      <p ng-show="tweet.twitterData.retweet">
-                          <strong>
-                            Retweeted from {{tweet.twitterData.retweet.user.name}}  @{{tweet.twitterData.retweet.user.pseudo}}
-                            {{tweet.twitterData.retweet.createdAt}}
-                          </strong>
-                      </p>
+                  <div class="col-xs-10 col-sm-9">
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <strong>{{tweet.twitterData.user.name}}</strong> @{{tweet.twitterData.user.pseudo}}
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12" ng-show="tweet.twitterData.retweet">
+                              RT @{{tweet.twitterData.retweet.user.pseudo}} {{tweet.twitterData.retweet.user.name}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row spacer">
+                  <div class="col-xs-12">
+                      <p ng-bind-html-unsafe="tweet.twitterData.text | parseUrlFilter:'_blank'"></p>
+                  </div>
+
+              </div>
+              <div class="row">
+                  <div class="col-xs-12" class="control-group">
+
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-lg" ng-click="markAsRead(tweet)">
+                              <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-lg">
+                              <span class="glyphicon glyphicon-floppy-disk"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-lg" ng-click="retweet(tweet)">
+                              <span class="glyphicon glyphicon-repeat"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-lg" ng-click="retweetAsRT(tweet)">
+                              <span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-lg" ng-click="markAsInteresting(tweet)">
+                              <span class="glyphicon glyphicon-star"></span>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row spacer" ng-show="tweet.twitterData.entities.urls">
+                  <div class="col-xs-12">
                       <ul>
                           <li ng-repeat="url in tweet.twitterData.entities.urls">
-                            <a ng-href="{{url.expanded_url}}" target="_blank">{{url.expanded_url}}</a>
+                            <a ng-href="{{url.expanded_url}}" target="_blank" class="btn btn-default btn-lg">{{url.display_url}}</a>
                           </li>
                       </ul>
                   </div>
               </div>
+
           </div>
-
-
-
       </li>
   </ul>
